@@ -9,6 +9,6 @@ cd /dgx/github
 git clone https://github.com/TaikiInoue/SSAD.git
 cd /dgx/github/SSAD
 git checkout master
-git checkout 31c664b53f14719a2f1623e83af7ad7e366be194
+git checkout e079a334bd52dee160e46dcf9f695f549e9c7faf
 
 python ssad/run.py conf/config.yaml
