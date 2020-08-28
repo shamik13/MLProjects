@@ -2,6 +2,8 @@ sed -i "s/console, file/file/" /opt/conda/lib/python3.6/site-packages/hydra/conf
 mkdir -p /dgx/data
 sshfs inoue.momo:/dgx/inoue/data/ /dgx/data
 
+export PYTHONPATH="/dgx/github/SSAD:$PYTHONPATH"
+
 mkdir -p /dgx/github
 cd /dgx/github
 git clone https://github.com/TaikiInoue/SSAD.git
