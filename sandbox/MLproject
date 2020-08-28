@@ -1,0 +1,8 @@
+name: sandbox
+
+docker_env:
+    image: ssad
+
+entry_points:
+    main:
+        command: "sh entrypoint.sh"
