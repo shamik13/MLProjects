@@ -1,8 +1,13 @@
 name: sandbox
 
 docker_env:
-    image: ssad
+    image: somic/ssad:21085d3
 
 entry_points:
+    data:
+        parameters:
+            branch: master
+            commit_id:
+        command: ""
     main:
         command: "sh entrypoint.sh"

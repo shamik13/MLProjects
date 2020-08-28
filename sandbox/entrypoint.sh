@@ -4,6 +4,8 @@ sshfs inoue.momo:/dgx/inoue/data/ /dgx/data
 
 export PYTHONPATH="/dgx/github/SSAD:$PYTHONPATH"
 
+ls /dgx/data
+
 mkdir -p /dgx/github
 cd /dgx/github
 git clone https://github.com/TaikiInoue/SSAD.git

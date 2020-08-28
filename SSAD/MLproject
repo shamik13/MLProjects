@@ -2,16 +2,14 @@ name: ssad
 
 docker_env:
     image: ssad
+    volumes: ["/home/inoue/data:/mlflow/data"]
 
 entry_points:
-    git_clone:
-        command: "git clone "
-    prepare_data:
-        command: "python run.py conf/config.yaml"
-    train:
+    dvc:
         parameters:
-            config:
-            classifier_augs:
-            semseg_augs:
-            test_augs:
-        command: ""
+            data_dir: /mlflow/data
+            branch: master
+            commit_id:
+        command: "bash dvc.sh --data_dir {data_dir} --branch {branch} --commit_id {commit_id}
+    train:
+        command: "python run.py conf/config.yaml"
