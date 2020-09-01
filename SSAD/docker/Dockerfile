@@ -36,5 +36,4 @@ RUN set -xe \
 
 RUN set -xe \
         && git clone https://github.com/TaikiInoue/SSAD.git \
-        && git checkout master \
         && git checkout 18013875df1da233f25bf38d8751d100033a4cda

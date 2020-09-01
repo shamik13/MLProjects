@@ -1,13 +1,20 @@
 name: sandbox
 
-docker_env:
-    image: somic/ssad:21085d3
+environment:
+    image:
+    tag:
 
-entry_points:
+data:
+    parameters:
+        data_dir:
+        branch:
+        commit_id:
+    command: "dvc repro"
+
+code:
     data:
         parameters:
-            branch: master
             commit_id:
-        command: ""
+        command: "sh data_versioning.sh"
     main:
         command: "sh entrypoint.sh"

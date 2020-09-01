@@ -2,14 +2,17 @@ name: ssad
 
 docker_env:
     image: ssad
-    volumes: ["/home/inoue/data:/mlflow/data"]
+    environment: ["MLFLOW_TRACKING_URI",
+                  "DATABRICKS_HOST",
+                  "DATABRICKS_TOKEN",
+                  "AZURE_STORAGE_CONNECTION_STRING",
+                  "AZURE_STORAGE_CONTAINER_NAME"]
 
 entry_points:
-    dvc:
+    data_versioning:
         parameters:
-            data_dir: /mlflow/data
-            branch: master
-            commit_id:
-        command: "bash dvc.sh --data_dir {data_dir} --branch {branch} --commit_id {commit_id}
-    train:
+            repo: git@github.com:TaikiInoue/DVC.git
+            commit_hash: 5756f5d319414721b7c70d67cb91ddc7316a09e8
+        command: "bash data_versioning.sh --repo {repo} --commit_hash {commit_hash}
+    run_train_and_test:
         command: "python run.py conf/config.yaml"
