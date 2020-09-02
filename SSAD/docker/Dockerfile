@@ -9,17 +9,23 @@ COPY requirements_apt.txt requirements_apt.txt
 RUN set -xe \
         && apt update -y \
         && apt install -y --no-install-recommends $(cat requirements_apt.txt) \
+        && apt-get update -y \
+        && apt-get install -y --no-install-recommends libgl1-mesa-dev \
         && rm -rf /var/lib/apt/lists/* \
         && rm requirements_apt.txt
+
+
+# https://dvc.org/doc/install/linux#install-from-repository
+RUN set -xe \
+        && wget https://dvc.org/deb/dvc.list -O /etc/apt/sources.list.d/dvc.list \
+        && apt update -y \
+        && apt install dvc
 
 
 ARG PYTHON_VERSION=3.6.5
 ENV PATH /opt/conda/bin:$PATH
 ENV PATH /usr/local/cuda-10.2/bin:$PATH
 ENV LD_LIBRARY_PATH /usr/local/cuda-10.2/lib64:$LD_LIBRARY_PATH
-ENV MLFLOW_TRACKING_URI databricks
-ENV MLFLOW_EXPERIMENT_ID 3727505236296006
-
 COPY requirements_pip.txt requirements_pip.txt
 RUN set -xe \
         && curl -o ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
@@ -34,6 +40,8 @@ RUN set -xe \
         && rm requirements_pip.txt
 
 
+ENV PYTHONPATH /mlflow/SSAD:$PYTHONPATH
 RUN set -xe \
-        && git clone https://github.com/TaikiInoue/SSAD.git \
+        && git clone https://github.com/TaikiInoue/SSAD.git /mlflow/SSAD \
+        && cd /mlflow/SSAD \
         && git checkout 18013875df1da233f25bf38d8751d100033a4cda

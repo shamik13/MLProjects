@@ -6,39 +6,28 @@ run_train:
 
 dataset:
   S:
-    base: /mlflow/data
+    base: /app/DVC/dataset
     query:
-      - folder == '20200610093341_H_ws2tobu_anomaly' &
-        has_kizu == 1 &
-        data_type == 'train'
+      - is_anomaly_image == 1 &
+        supervise == 'train'
   C:
-    base: /mlflow/data
+    base: /app/DVC/dataset
     query:
-      - folder == '20200610093341_H_ws2tobu_anomaly' &
-        has_kizu == 1 &
-        data_type == 'train'
-      - folder == '20200611140608_H_ws2tobu_normal' &
-        has_kizu == 0 &
-        data_type == 'train'
+      - is_anomaly_image == 1 &
+        supervise == 'train'
+      - is_anomaly_product == 0 &
+        supervise == 'train'
   test:
-    base: /mlflow/data
+    base: /app/DVC/dataset
     query:
-      - folder == '20200610093341_H_ws2tobu_anomaly' &
-        has_kizu == 1 &
-        data_type == 'test'
-      - folder == '20200610093341_H_ws2tobu_anomaly' &
-        has_kizu == 0 &
-        data_type == 'test'
-      - folder == '20200611140608_H_ws2tobu_normal' &
-        has_kizu == 0 &
-        data_type == 'test'
+      - supervise == 'test'
 
 dataloader:
   S:
-    batch_size: 16
+    batch_size: 32
     shuffle: True
   C:
-    batch_size: 16
+    batch_size: 32
     shuffle: True
   test:
     batch_size: 1
@@ -63,19 +52,19 @@ augs:
   height: 64
   width: 64
   S:
-    yaml: /mlflow/code/SSAD/ssad/conf/augs/train_semseg.yaml
+    yaml: /mlflow/SSAD/ssad/conf/augs/train_semseg.yaml
     args:
       Resize:
         height: ${augs.height}
         width: ${augs.width}
   C:
-    yaml: /mlflow/code/SSAD/ssad/conf/augs/train_classifier.yaml
+    yaml: /mlflow/SSAD/ssad/conf/augs/train_classifier.yaml
     args:
       Resize:
         height: ${augs.height}
         width: ${augs.width}
   test:
-    yaml: /mlflow/code/SSAD/ssad/conf/augs/test.yaml
+    yaml: /mlflow/SSAD/ssad/conf/augs/test.yaml
     args:
       Resize:
         height: ${augs.height}

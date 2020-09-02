@@ -1,18 +1,8 @@
 name: ssad
 
 docker_env:
-    image: ssad
-    environment: ["MLFLOW_TRACKING_URI",
-                  "DATABRICKS_HOST",
-                  "DATABRICKS_TOKEN",
-                  "AZURE_STORAGE_CONNECTION_STRING",
-                  "AZURE_STORAGE_CONTAINER_NAME"]
+    image: ssad:0d9818c340b647070a37718594dc7737339a62c6
 
 entry_points:
-    data_versioning:
-        parameters:
-            repo: git@github.com:TaikiInoue/DVC.git
-            commit_hash: 5756f5d319414721b7c70d67cb91ddc7316a09e8
-        command: "bash data_versioning.sh --repo {repo} --commit_hash {commit_hash}
-    run_train_and_test:
-        command: "python run.py conf/config.yaml"
+    main:
+        command: "sh entry_points.sh"

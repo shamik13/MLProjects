@@ -23,3 +23,5 @@ flake8
 mypy
 nptyping
 mlflow
+labelme==3.16.7
+pyqt5
