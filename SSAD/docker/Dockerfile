@@ -36,12 +36,6 @@ RUN set -xe \
         && /opt/conda/bin/conda install pytorch torchvision cudatoolkit=10.2 -c pytorch \
         && /opt/conda/bin/conda clean -ya \
         && pip install --no-cache-dir -r requirements_pip.txt \
+        && pip install git+https://github.com/harupy/mlflow.git@fix-docker-env \
         && pip install --no-cache-dir --upgrade hydra-core \
         && rm requirements_pip.txt
-
-
-ENV PYTHONPATH /mlflow/SSAD:$PYTHONPATH
-RUN set -xe \
-        && git clone https://github.com/TaikiInoue/SSAD.git /mlflow/SSAD \
-        && cd /mlflow/SSAD \
-        && git checkout 18013875df1da233f25bf38d8751d100033a4cda

@@ -1,8 +1,14 @@
 name: ssad
 
 docker_env:
-    image: ssad:0d9818c340b647070a37718594dc7737339a62c6
+    image: ssad:latest
+    environment: ["MLFLOW_TRACKING_URI", "DATABRICKS_HOST", "DATABRICKS_TOKEN", "AZURE_STORAGE_CONNECTION_STRING"]
 
 entry_points:
     main:
-        command: "sh entry_points.sh"
+        parameters:
+            data_repo: {type: str, default: "https://github.com/TaikiInoue/DVC.git"}
+            data_commid_hash: {type: str, default: "a6e3c2288e7808162d46d9f998eb7c674ad90384"}
+            code_repo: {type: str, default: "https://github.com/TaikiInoue/SSAD.git"}
+            code_commit_hash: {type: str, default: "18013875df1da233f25bf38d8751d100033a4cda"}
+        command: "sh entry_points.sh --data_repo={data_repo} --data_commid_hash={data_commid_hash} --code_repo={code_repo} --code_commit_hash={code_commit_hash}"

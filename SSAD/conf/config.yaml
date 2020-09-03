@@ -6,19 +6,19 @@ run_train:
 
 dataset:
   S:
-    base: /app/DVC/dataset
+    base: /mlflow/data/dataset
     query:
       - is_anomaly_image == 1 &
         supervise == 'train'
   C:
-    base: /app/DVC/dataset
+    base: /mlflow/data/dataset
     query:
       - is_anomaly_image == 1 &
         supervise == 'train'
       - is_anomaly_product == 0 &
         supervise == 'train'
   test:
-    base: /app/DVC/dataset
+    base: /mlflow/data/dataset
     query:
       - supervise == 'test'
 
@@ -52,19 +52,19 @@ augs:
   height: 64
   width: 64
   S:
-    yaml: /mlflow/SSAD/ssad/conf/augs/train_semseg.yaml
+    yaml: /mlflow/code/ssad/conf/augs/train_semseg.yaml
     args:
       Resize:
         height: ${augs.height}
         width: ${augs.width}
   C:
-    yaml: /mlflow/SSAD/ssad/conf/augs/train_classifier.yaml
+    yaml: /mlflow/code/ssad/conf/augs/train_classifier.yaml
     args:
       Resize:
         height: ${augs.height}
         width: ${augs.width}
   test:
-    yaml: /mlflow/SSAD/ssad/conf/augs/test.yaml
+    yaml: /mlflow/code/ssad/conf/augs/test.yaml
     args:
       Resize:
         height: ${augs.height}
