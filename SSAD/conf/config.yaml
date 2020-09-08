@@ -9,18 +9,22 @@ dataset:
     base: /mlflow/data/dataset
     query:
       - is_anomaly_image == 1 &
-        supervise == 'train'
+        crop_type == 'tobu' &
+        supervised == 'train'
   C:
     base: /mlflow/data/dataset
     query:
       - is_anomaly_image == 1 &
-        supervise == 'train'
+        crop_type == 'tobu' &
+        supervised == 'train'
       - is_anomaly_product == 0 &
-        supervise == 'train'
+        crop_type == 'tobu' &
+        supervised == 'train'
   test:
     base: /mlflow/data/dataset
     query:
-      - supervise == 'test'
+      - crop_type == 'tobu' &
+        supervise == 'test'
 
 dataloader:
   S:
