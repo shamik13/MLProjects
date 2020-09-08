@@ -33,7 +33,7 @@ git checkout ${data_commit_hash}
 dvc remote modify blob_storage url azure://somic/dvc_storage
 dvc remote modify --local blob_storage connection_string $AZURE_STORAGE_CONNECTION_STRING
 dvc pull raw_datasets/*.zip.dvc
-dvc repro --cwd repro
+dvc repro
 
 cd /mlflow/code
 export PYTHONPATH="/mlflow/code:$PYTHONPATH"
