@@ -24,7 +24,7 @@ dataset:
     base: /mlflow/data/dataset
     query:
       - crop_type == 'tobu' &
-        supervise == 'test'
+        supervised == 'test'
 
 dataloader:
   S:
