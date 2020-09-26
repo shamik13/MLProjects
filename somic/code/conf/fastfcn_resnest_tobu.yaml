@@ -1,0 +1,100 @@
+do_inference_only: False
+dataset:
+  name: SomicCfgDataset
+  path: /mlflow/projects/code/conf/dataset_config.yaml
+  type: H_tobu_segmentation
+  
+model:
+ name: FastFCN
+ backbone: ResNeSt101
+ backbone_n_classes:
+ backbone_weight_path: #"/dgx/shared/momo/Data/Parameters/resnest101-22405ba7.pth"
+ pretrained_model_path: 
+#  "/dgx/semantic_segmentation/_SOMIC/somic/experiments/fastfcn_resnest_tobu_mixed_biasedcrop/version_6/checkpoint/best_model.pth"
+#  pretrained_model_path: "/dgx/semantic_segmentation/_SOMIC/somic/experiments/fastfcn_resnest_kasimeware+focalloss_config/version_5/checkpoint/best_model.pth"
+#  pretrained_model_path: "/dgx/shared/momo/Data/somic_model_weights/fastfcn/kasimeware_fastfcn_resnest.pth"
+ 
+augmentation:
+    train:
+    - name: Resize
+      args: 
+        height: 12
+        width: 12
+        p: 1
+#     - name: CropNonEmptyMaskIfExists
+#       args:
+#         height: 512
+#         width: 512
+#         always_apply: True
+#         p: 1
+#     - name: CenterCrop
+#       args:
+#         height: 512
+#         width: 512
+#         p: 1
+    validation:
+    - name: Resize
+      args: 
+        height: 12
+        width: 12
+        p: 1
+#     - name: CenterCrop
+#       args:
+#         height: 512
+#         width: 512
+#         p: 1
+  
+  
+preprocessing:
+  - name: gamma_correction
+    args:
+     gamma: 0.45
+  - name: Normalize
+    args:
+      always_apply: True
+      p: 1
+  - name: channel_first
+
+
+exp_details:
+  seed: 17
+  exp_name: DOCKER_fastfcn_resnest_H_tobu_segmentation
+  use_mlflow_tracking: True
+  mlflow_exp_name: "/Users/shamik@nablas.com/airflow_test"
+  training:
+    save_path: "/app/experiments/"
+    loss:
+      name: CrossEntropy2D #FocalLoss2D 
+#       args:
+#         alpha: 0.2
+    scheduler:
+      name: CosineAnnealingLR
+      args:
+        T_max: 10
+    optimizer:
+      name: adam
+      args:
+        lr: 1e-4
+    device: "cuda:0"
+    batch_size: 2
+    n_classes: 2
+    n_channels: 3
+    n_epoch: 1
+    model_saving_pref: miou
+    model_saving_pref_cond: max
+    metrics:
+      name:
+        - miou
+        - pixel_accuracy
+      params:
+        ignore_index: -1
+        num_classes: 2
+    multi_gpu_backend:
+        
+  inference:
+    device: "cuda:0"
+    use_profiling: True
+    n_classes: 2
+    n_channels: 3
+    save_predicted_images: True
+    tta:
