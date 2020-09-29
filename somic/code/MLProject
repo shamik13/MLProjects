@@ -3,7 +3,7 @@ name: somic_test
 docker_env:
     image: somic
     environment: ["MLFLOW_TRACKING_URI", "DATABRICKS_HOST", "DATABRICKS_TOKEN", "AZURE_STORAGE_CONNECTION_STRING"]
-    volumes: ["/home/shamik/WORK/SOMIC/AIRFLOW_DIR:/app"]
+    volumes: ["/home/shamik/WORK/SOMIC/AIRFLOW_DIR/DATA:/app"]
     environment: [["DATABRICKS_HOST","https://adb-8957784381931580.0.azuredatabricks.net/"],
                   ["DATABRICKS_TOKEN","dapi609ee108183f9c8fc391da00ce1ea4ba"],
                   ["AZURE_STORAGE_CONNECTION_STRING","DefaultEndpointsProtocol=https;AccountName=somicdataset;AccountKey=tooZlVQe21wouHvZeulg5TTmyyhRL6FaxKWUbbut9kiq8BsMhuDxqD59WxxHWv5UMTZyHGHJDEKf03CE8s4OqA==;EndpointSuffix=core.windows.net"],
